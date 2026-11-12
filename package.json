@@ -1,0 +1,12 @@
+{
+  "name": "kids-math",
+  "version": "1.0.0",
+  "description": "Brainy Quest — math, reading and brain games for kids up to age 10. Plain HTML/CSS/JS, no dependencies.",
+  "private": true,
+  "scripts": {
+    "bundle": "node tools/bundle.js",
+    "lint": "node tools/syntax-check.js",
+    "serve": "python -m http.server 8080"
+  },
+  "license": "UNLICENSED"
+}

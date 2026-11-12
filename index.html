@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Brainy Quest: math, reading and brain games for kids up to age 10.">
+<title>Brainy Quest — Math, Reading & Brain Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/play.css">
+<link rel="stylesheet" href="css/visuals.css">
+<link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+<div class="deco" id="deco" aria-hidden="true"></div>
+<div class="app">
+
+  <!-- ================= HOME ================= -->
+  <section class="screen" id="home">
+    <header class="hud">
+      <button class="who" id="whoBtn" aria-label="Switch player">
+        <span class="avatar" id="hudAv">🦊</span>
+        <span style="flex:1;min-width:0;display:block">
+          <h2 id="hudName">Hi!</h2>
+          <span class="lvl-row"><span class="lvl-badge" id="hudLvl">Level 1</span><span class="xpbar"><i id="hudXp"></i></span><span class="xp-txt" id="hudXpTxt">0 / 100 XP</span></span>
+        </span>
+      </button>
+      <div class="chips">
+        <span class="chip" title="Stars earned">⭐ <span id="hudStars">0</span></span>
+        <span class="chip" title="Days in a row">🔥 <span id="hudStreak">0</span></span>
+        <button class="chip" id="stickerBtn" title="Sticker book">📒 <span id="hudStk">0</span></button>
+        <button class="iconbtn" id="settingsBtn" aria-label="Settings and grown-ups">⚙️</button>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="panel goal">
+        <div class="ring" id="goalRing"><b id="goalTxt">0/15</b></div>
+        <div style="flex:1">
+          <h3>🎯 Today's goal</h3>
+          <p id="goalSub">Get 15 answers right today!</p>
+          <div class="say-bubble" id="homeSay"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>🗺️ Daily quests</h3>
+        <p>Finish all 3 for a bonus sticker!</p>
+        <div class="mission-list" id="missions"></div>
+      </div>
+    </div>
+
+    <div id="worlds"></div>
+    <p class="foot">Progress is saved on this device. Grown-ups: tap ⚙️ for the progress report.</p>
+  </section>
+
+  <!-- ================= PLAY (quiz engine) ================= -->
+  <section class="screen" id="play">
+    <div class="topbar">
+      <button class="back" data-home>← Home</button>
+      <div class="act-title"><span id="actIcon"></span><span id="actName"></span></div>
+      <div class="levels" id="levels" role="group" aria-label="Difficulty"></div>
+    </div>
+    <div class="roundbar">
+      <div class="dots" id="dots"></div>
+      <div class="timer" id="timer" hidden><i></i></div>
+      <div class="combo" id="combo"></div>
+    </div>
+    <div class="stage">
+      <div>
+        <div class="panel passage-wrap" id="passageWrap" hidden>
+          <div class="story-head"><h3 id="storyTitle"></h3><button class="pill-btn" id="readStory">🔊 Read to me</button></div>
+          <div class="passage" id="passage"></div>
+          <p class="muted" style="font-size:.85rem;margin:0">Tip: tap any word to hear it.</p>
+        </div>
+        <div class="card" id="card">
+          <div class="prompt-row"><div class="prompt" id="qPrompt"></div><button class="say-btn" id="sayBtn" aria-label="Read the question aloud">🔊</button></div>
+          <div class="answer" id="answerArea"></div>
+          <div class="feedback" id="feedback" aria-live="polite"></div>
+          <div class="explain" id="explain" hidden></div>
+          <div class="tools" id="tools"><button class="pill-btn" id="btnShow">🔍 Show me</button></div>
+          <div class="visual" id="qVisual" hidden></div>
+        </div>
+      </div>
+      <aside class="buddy" aria-hidden="true"><div class="say" id="buddySay">Let's go!</div><div class="face" id="buddyFace">🦊</div></aside>
+    </div>
+  </section>
+
+  <!-- ================= FLASHCARDS ================= -->
+  <section class="screen" id="flash">
+    <div class="topbar">
+      <button class="back" data-home>← Home</button>
+      <div class="act-title">🃏 Sight Word Cards</div>
+      <span class="chip" id="fcLearned">✅ 0 learned</span>
+    </div>
+    <div class="cat-pills" id="fcCats"></div>
+    <div class="card center">
+      <div class="xp-txt" id="fcNum">Word 1 of 200</div>
+      <div class="fc-meta" style="margin-top:8px"><span class="badge" id="fcBadge"></span></div>
+      <div class="fc-word" id="fcWord"></div>
+      <div class="fc-meta"><div class="respell" id="fcRespell"></div><div class="muted" id="fcIpa"></div></div>
+      <div class="fc-nav">
+        <button class="pill-btn" id="fcSay">🔊 Say it</button>
+        <button class="pill-btn" id="fcSpell">🔤 Spell it</button>
+        <button class="pill-btn" id="fcKnow">✅ I know it!</button>
+      </div>
+    </div>
+    <div class="fc-nav">
+      <button class="btn ghost" id="fcPrev">◀ Back</button>
+      <button class="btn ghost" id="fcShuf">🔀 Shuffle</button>
+      <button class="btn" id="fcNext">Next ▶</button>
+    </div>
+    <p class="center muted" style="font-size:.85rem">Keyboard: ← → to move, Space to hear the word.</p>
+  </section>
+
+  <!-- ================= MATH LAB ================= -->
+  <section class="screen" id="lab">
+    <div class="topbar">
+      <button class="back" data-home>← Home</button>
+      <div class="act-title">🔬 Math Lab <span class="muted" style="font-size:.95rem;font-weight:500">— play and explore!</span></div>
+    </div>
+    <div class="tabs" id="labTabs"></div>
+    <div class="card" id="labBody"></div>
+  </section>
+
+  <!-- ================= BRAIN GAME (memory / puzzle) ================= -->
+  <section class="screen" id="game">
+    <div class="topbar">
+      <button class="back" data-home>← Home</button>
+      <div class="act-title" id="gTitle"></div>
+      <div class="levels" id="gLevels" role="group" aria-label="Difficulty"></div>
+    </div>
+    <div class="roundbar"><div class="chips" id="gStats"></div></div>
+    <div class="card" id="gBody"></div>
+  </section>
+
+</div>
+
+<div class="overlay" id="overlay"><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<!-- Core (load first, in this order) -->
+<script src="js/core/util.js"></script>
+<script src="js/core/registry.js"></script>
+<script src="js/worlds.js"></script>
+<script src="js/core/store.js"></script>
+<script src="js/core/audio.js"></script>
+<script src="js/core/speech.js"></script>
+<script src="js/core/effects.js"></script>
+<script src="js/core/ui.js"></script>
+<script src="js/core/rewards.js"></script>
+<script src="js/core/home.js"></script>
+<script src="js/core/engine.js"></script>
+<script src="js/core/answer-types.js"></script>
+<script src="js/core/passage.js"></script>
+<script src="js/core/keyboard.js"></script>
+<script src="js/core/games.js"></script>
+<script src="js/visuals/math-visuals.js"></script>
+
+<!-- Data -->
+<script src="js/data/words.js"></script>
+<script src="js/data/stories.js"></script>
+<script src="js/data/brain-games.js"></script>
+
+<!-- Math World (tiles appear in this order) -->
+<script src="js/activities/math/addsub.js"></script>
+<script src="js/activities/math/muldiv.js"></script>
+<script src="js/activities/math/race.js"></script>
+<script src="js/activities/math/placevalue.js"></script>
+<script src="js/activities/math/fractions.js"></script>
+<script src="js/activities/math/time.js"></script>
+<script src="js/activities/math/money.js"></script>
+<script src="js/activities/math/compare.js"></script>
+<script src="js/activities/math/patterns.js"></script>
+<script src="js/activities/math/wordprob.js"></script>
+<script src="js/screens/math-lab.js"></script>
+
+<!-- Reading World -->
+<script src="js/screens/flashcards.js"></script>
+<script src="js/activities/reading/hunt.js"></script>
+<script src="js/activities/reading/pics.js"></script>
+<script src="js/activities/reading/phonics.js"></script>
+<script src="js/activities/reading/spell.js"></script>
+<script src="js/activities/reading/rhyme.js"></script>
+<script src="js/activities/reading/opposites.js"></script>
+<script src="js/activities/reading/sentence.js"></script>
+<script src="js/activities/reading/detective.js"></script>
+<script src="js/activities/reading/story.js"></script>
+
+<!-- Brain Games -->
+<script src="js/activities/brain/memory.js"></script>
+<script src="js/activities/brain/oddone.js"></script>
+<script src="js/activities/brain/puzzle.js"></script>
+
+<!-- Settings + startup (load last) -->
+<script src="js/screens/settings.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

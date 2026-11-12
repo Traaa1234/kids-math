@@ -1,0 +1,44 @@
+/* Custom screens: Math Lab, flashcards, brain games, reduced motion */
+/* lab */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.tabs button{padding:9px 15px;border-radius:999px;background:#fff;font-weight:600;box-shadow:var(--sh-btn)}
+.tabs button.on{background:var(--math);color:#fff}
+.lab-ctrls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.range{display:flex;align-items:center;gap:10px;justify-content:center;margin:8px 0;font-weight:600;flex-wrap:wrap}
+.range input{width:210px;accent-color:var(--math)}
+.big-eq{font-size:clamp(1.7rem,5vw,2.5rem);font-weight:700;text-align:center;margin:8px 0}
+.seg-btns{display:inline-flex;background:var(--soft);border-radius:999px;padding:4px}
+.seg-btns button{padding:6px 14px;border-radius:999px;font-weight:700;font-size:1.2rem}
+.seg-btns button.on{background:var(--math);color:#fff}
+
+/* flashcards */
+.cat-pills{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.cat-pills button{padding:6px 12px;border-radius:999px;background:#fff;font-weight:600;font-size:.85rem;box-shadow:var(--sh-btn)}
+.cat-pills button.on{color:#fff}
+.fc-word{font-size:clamp(3rem,13vw,5.6rem);font-weight:700;text-align:center;line-height:1.15;background:linear-gradient(135deg,var(--read),#c026d3,var(--math));-webkit-background-clip:text;background-clip:text;color:transparent;margin:10px 0 4px;word-break:break-word}
+.badge{display:inline-block;padding:4px 12px;border-radius:999px;color:#fff;font-weight:600;font-size:.78rem;letter-spacing:1px;text-transform:uppercase}
+.fc-meta{display:flex;flex-direction:column;align-items:center;gap:6px}
+.respell{font-size:1.4rem;font-weight:600;color:var(--read)}
+.fc-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.known{background:var(--good-bg)!important;color:var(--good)}
+
+/* brain games */
+.mem-grid{display:grid;gap:10px;justify-content:center;margin:0 auto}
+.mcard{width:clamp(64px,19vw,104px);aspect-ratio:1;border-radius:18px;perspective:600px;position:relative}
+.mcard .in{position:absolute;inset:0;transition:transform .45s;transform-style:preserve-3d}
+.mcard.up .in,.mcard.done .in{transform:rotateY(180deg)}
+.mcard .f,.mcard .b{position:absolute;inset:0;border-radius:18px;display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.mcard .b{background:linear-gradient(135deg,var(--brain),#0ea5e9);box-shadow:0 5px 0 #0f766e;font-size:2rem;color:#fff}
+.mcard .f{background:#fff;transform:rotateY(180deg);box-shadow:0 5px 0 #d9d4ea,inset 0 0 0 3px #e6e1f4;font-size:clamp(1.8rem,7vw,3rem);font-weight:700;text-align:center;line-height:1.05;padding:4px}
+.mcard .f.txt{font-size:clamp(.9rem,3.6vw,1.35rem)}
+.mcard.done .f{background:var(--good-bg);box-shadow:0 5px 0 #86efac,inset 0 0 0 3px var(--good-2)}
+.pz-board{display:grid;gap:3px;margin:0 auto;background:#fff;padding:3px;border-radius:14px;box-shadow:var(--sh);max-width:600px;width:100%}
+.pz-tile{position:relative;padding:0;border-radius:6px;overflow:hidden;line-height:0;transition:transform .15s,box-shadow .15s}
+.pz-tile svg{display:block;width:100%;height:auto}
+.pz-tile.sel{box-shadow:0 0 0 4px var(--sun);transform:scale(.95);z-index:2}
+.pz-tile.ok::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 0 3px rgba(34,197,94,.75);border-radius:6px}
+.pz-done .pz-tile.ok::after{display:none}
+.pz-peek{opacity:.9;max-width:200px;margin:0 auto;border-radius:10px;overflow:hidden;line-height:0;box-shadow:var(--sh)}
+.pz-peek svg{width:100%;height:auto;display:block}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.deco{display:none}}
