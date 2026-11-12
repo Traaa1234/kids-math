@@ -5,7 +5,8 @@ Plain HTML, CSS and JavaScript: **no installs, no accounts, no internet needed**
 
 ## ▶ Play it
 
-- **Easiest:** double-click `index.html`. It opens in your browser.
+- **Online:** https://traaa1234.github.io/kids-math/ (works on computers, tablets and phones)
+- **On your computer:** double-click `index.html`. It opens in your browser.
 - **One single file to share:** run `node tools/bundle.js`, then send `dist/brainy-quest.html`
   (email, USB stick, tablet). Everything is inside that one file.
 
