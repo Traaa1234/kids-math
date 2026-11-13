@@ -1,6 +1,10 @@
 'use strict';
 /* How each kind of answer is shown: choice, number, spell, tiles, pick */
-/* ---------------- answer renderers ---------------- */
+/* ---------------- answer renderers ----------------
+   ANSWER_TYPES maps a question's `kind` to the function that draws its answer area.
+   Add a new kind from any later file:  ANSWER_TYPES.myKind = (q, area) => { ... submit(value, element) ... }
+   (see js/visuals/abacus.js for the 'abacus' kind). */
+const ANSWER_TYPES = { choice: renderChoices, number: renderNumpad, spell: renderSpell, tiles: renderTiles, pick: renderPick };
 function renderChoices(q, area) {
   const g = el('div', 'choices' + (q.cols ? ' c' + q.cols : '') + (q.choiceClass ? ' ' + q.choiceClass : ''));
   q.choices.forEach((c, i) => {

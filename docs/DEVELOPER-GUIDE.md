@@ -46,12 +46,13 @@ index.html ──loads──▶ core (helpers, registry, saving, engine…)
 | `custom: true, open(id)` | A screen of your own instead of the quiz engine (see below) |
 | `game: true` | Custom brain game that reports stars through `gameFinish()` |
 | `mastery()` | Custom text for the bottom of the tile |
+| `selfTest()` | Optional deeper test run by `?selfcheck`; return `{ checked, errors: [] }` (see `abacusSelfTest`) |
 
 ### Question object (returned by `gen`)
 
 | Field | Meaning |
 |---|---|
-| `kind` | `'choice'` · `'number'` (on-screen number pad) · `'spell'` (fill missing letters) · `'tiles'` (put words in order) · `'pick'` (tap a word inside the prompt) |
+| `kind` | `'choice'` · `'number'` (on-screen number pad) · `'spell'` (fill missing letters) · `'tiles'` (put words in order) · `'pick'` (tap a word inside the prompt) · `'abacus'` (build the answer on an abacus; set `rods`) |
 | `prompt` | HTML for the question. Handy classes: `big`, `emo`, `wp` (word problem), `qbox` (yellow ? box) |
 | `answer` | The right value. Compared as text, so `12` and `'12'` match |
 | `check(value)` | Optional custom checker (return true if right) |
@@ -82,6 +83,20 @@ index.html ──loads──▶ core (helpers, registry, saving, engine…)
 `longDivHTML(a,d)` · `numberLine(min,max,{marks,hops})` · `pieSVG(n,d)` · `barSVG(n,d)` · `fr(n,d)` ·
 `clockSVG(h,m,size,{minutes})` · `coinsHTML([25,10,1])` · `countOnHTML(list)` · `emojiGroups([3,4],'🍎')` ·
 `barModel(rows)` · `seqHTML(seq, missingIndex, showHops)` · `numWords(n)` · `timeWords(h,m)`
+
+### Abacus tools (`js/visuals/abacus.js`)
+
+`abacusSVG(rods, { digits, showDigits, hl })` static picture · `abacusView(el, rods, { interactive, onChange })` live abacus
+with `.set(digits, hl)` / `.value()` · `abacusFrames(op, a, b)` every bead move for `'+' '-' '×' '÷'` ·
+`abacusPlayer(el, op, a, b)` step player with Back / Next / Play all / Read steps · `abDigits(n, rods)`.
+The step engine follows the soroban method: add and subtract from the left, using 5-friends and 10-friends.
+
+## Add a new answer kind
+
+Answer kinds live in `ANSWER_TYPES` (`js/core/answer-types.js`). Add one from any later file:
+`ANSWER_TYPES.myKind = (q, area) => { /* draw into area, then call submit(value, element) */ }`.
+Optionally set `S.reveal` (show the right answer) and `S.onWrong`. See the `abacus` kind at the end of
+`js/visuals/abacus.js`.
 
 ## Add a new subject (world)
 

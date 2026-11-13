@@ -86,7 +86,7 @@ function renderQ() {
   setFB('');
   $('#explain').hidden = true; $('#explain').innerHTML = '';
   const area = $('#answerArea'); area.innerHTML = ''; area.hidden = false;
-  ({ choice: renderChoices, number: renderNumpad, spell: renderSpell, tiles: renderTiles, pick: renderPick })[q.kind](q, area);
+  ANSWER_TYPES[q.kind](q, area);
   if (q.visualOpen) showVisual();
   const p = P();
   if (q.say && !S.act.timed && (p.settings.autoRead || q.alwaysSpeak)) setTimeout(() => { if (S.q === q) speak(q.say, { btn: $('#sayBtn') }); }, 250);

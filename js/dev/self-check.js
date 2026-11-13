@@ -22,7 +22,8 @@
         for (const q of qs) {
           counts[id]++;
           try {
-            if (!['choice', 'number', 'spell', 'tiles', 'pick'].includes(q.kind)) fail(id, lv, 'unknown kind ' + q.kind, q);
+            if (!ANSWER_TYPES[q.kind]) fail(id, lv, 'unknown kind ' + q.kind, q);
+            if (q.kind === 'abacus' && (!Number.isInteger(q.answer) || String(q.answer).length > q.rods)) fail(id, lv, 'abacus answer does not fit the rods', q);
             if (q.kind === 'choice') {
               const vals = q.choices.map(c => String(c.val));
               if (new Set(vals).size !== vals.length) fail(id, lv, 'duplicate choices ' + vals, q);
@@ -46,6 +47,11 @@
         }
       }
     }
+  }
+  // Activities (or tools) can add their own deeper tests with selfTest() → array of problem messages.
+  for (const id of Object.keys(ACTS)) {
+    if (typeof ACTS[id].selfTest !== 'function') continue;
+    try { const r = ACTS[id].selfTest(); counts[id] = (counts[id] || 0) + r.checked; r.errors.forEach(m => fail(id, '-', m)); } catch (e) { fail(id, '-', 'selfTest crashed: ' + e.message); }
   }
   const total = Object.values(counts).reduce((s, n) => s + n, 0), ms = Math.round(performance.now() - t0);
   const unique = [...new Set(errs)];

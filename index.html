@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="css/play.css">
 <link rel="stylesheet" href="css/visuals.css">
 <link rel="stylesheet" href="css/screens.css">
+<link rel="stylesheet" href="css/abacus.css">
 </head>
 <body>
 <div class="deco" id="deco" aria-hidden="true"></div>
@@ -124,6 +125,16 @@
     <div class="card" id="labBody"></div>
   </section>
 
+  <!-- ================= ABACUS LAB ================= -->
+  <section class="screen" id="abacus">
+    <div class="topbar">
+      <button class="back" data-home>← Home</button>
+      <div class="act-title">🧮 Abacus Lab <span class="muted" style="font-size:.95rem;font-weight:500">— see every bead move</span></div>
+    </div>
+    <div class="tabs" id="ablTabs"></div>
+    <div class="card" id="ablBody"></div>
+  </section>
+
   <!-- ================= BRAIN GAME (memory / puzzle) ================= -->
   <section class="screen" id="game">
     <div class="topbar">
@@ -157,6 +168,7 @@
 <script src="js/core/keyboard.js"></script>
 <script src="js/core/games.js"></script>
 <script src="js/visuals/math-visuals.js"></script>
+<script src="js/visuals/abacus.js"></script>
 
 <!-- Data -->
 <script src="js/data/words.js"></script>
@@ -192,6 +204,11 @@
 <script src="js/activities/brain/memory.js"></script>
 <script src="js/activities/brain/oddone.js"></script>
 <script src="js/activities/brain/puzzle.js"></script>
+
+<!-- Abacus World -->
+<script src="js/screens/abacus-lab.js"></script>
+<script src="js/activities/abacus/abacus-read.js"></script>
+<script src="js/activities/abacus/abacus-math.js"></script>
 
 <!-- Settings + startup (load last) -->
 <script src="js/screens/settings.js"></script>
